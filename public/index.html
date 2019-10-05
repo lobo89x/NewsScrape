@@ -26,23 +26,36 @@
         display: block;
         width: 100%;
         background-color: rgb(2, 2, 2);
+        color: aliceblue;
       }
       input {
         height: 36px;
         font-size: 24px;
+        color: aliceblue;
       }
       textarea {
         height: 200px;
         font-size: 18px;
+        color: aliceblue;
       }
     </style>
   </head>
   <body>
-    <div id="wrapper">
-      <h1>Note Scraper</h1>
-      <h2><i>If you can do this...the homework should be no problem.</i></h2>
-      <div id="articles"></div>
-      <div id="notes"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+            <!-- <img class="img-fluid" src="assets/img/giphy (1).gif" alt=""> -->
+        </div>
+        <div class="col-lg-6">
+            <div id="wrapper">
+              <h1>Scraped up some news</h1>
+              <h2>Read'em And Say Somthin'</h2>
+              <div id="articles"></div>
+              <div id="notes"></div>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+      </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>

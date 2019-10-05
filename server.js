@@ -36,7 +36,7 @@ app.get("/scrape", function(req, res) {
     // Now, we grab every h2 within an article tag, and do the following:
     //<tyt-article-view _ngcontent-c39="" _nghost-c32=""><!----><!----><!----><div _ngcontent-c32="" id="block"><div _ngcontent-c32="" id="underbox"><!----><a _ngcontent-c32="" href="/stories/4vZLCHuQrYE4uKagy0oyMA/5y5qMkorc7e4drPVloc7b2"><!----></a><!----><!----><a _ngcontent-c32="" id="franchise" href="/stories/franchise/4vZLCHuQrYE4uKagy0oyMA"><i _ngcontent-c32="" class="responsive-background" data-image-id="1098" style="background-image: url(&quot;https://images.ctfassets.net/uoaa2cfwzbej/577AIjoXa0ciyOIIuU6OQA/d686595b07bb6a1f3ffd871259be5bec/avatar_tyt_investigates.png?w=1920&quot;);"></i> TYT Investigates </a><div _ngcontent-c32="" id="metadata"><div _ngcontent-c32="" class="article-title"><!----><a _ngcontent-c32="" href="/stories/4vZLCHuQrYE4uKagy0oyMA/5y5qMkorc7e4drPVloc7b2">DHS Does ‘Victory Lap’ Over 2% Employee Morale Increase</a><!----></div><div _ngcontent-c32="" class="summary">  </div><div _ngcontent-c32="" class="article-subtext"><!----><!----><!----><strong _ngcontent-c32="">By: </strong><span _ngcontent-c32=""><!----><!----><!----><a _ngcontent-c32="" id="talent" href="/about/talent/5XgzR7Jw4MIc8IWuOkeM0g"><!---->Ken Klippenstein</a><!----><!----></span><span _ngcontent-c32="" class="divider">|</span><span _ngcontent-c32="">Sep 25, 2019</span><span _ngcontent-c32="" class="divider">|</span><tyt-comments-count _ngcontent-c32="" _nghost-c29=""><i _ngcontent-c29="" class="fas fa-comment-alt"></i><!----><span _ngcontent-c29="" class="spot-im-replies-count" data-post-id="article_5y5qMkorc7e4drPVloc7b2"></span></tyt-comments-count></div></div></div></div></tyt-article-view>
     $(".article-title").each(function(i, element) {
-      // Save an empty result object
+      // make a blank to receive the results
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
@@ -102,6 +102,15 @@ app.post("/articles/:id", function(req, res) {
   // save the new note that gets posted to the Notes collection
   // then find an article from the req.params.id
   // and update it's "note" property with the _id of the new note
+  db.Note.create(req)
+  .then(function(dbNote) {
+    // View the added result in the console
+    console.log(dbNote);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    console.log(err);
+  });
 });
 
 // Start the server
