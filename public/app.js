@@ -32,10 +32,21 @@ $(document).on("click", "p", function() {
 
       // If there's a note in the article
       if (data.note) {
+        $("#notesDisplay").empty();
         // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
+        // data.note.array.forEach(element => {
+        //   console.log(element);
+        // });
+
+        var note = $("<div>");
+        note.addClass("card");
+        note.append("<h5 clss='card-title'>"+data.note.title+"</h5>");
+        note.append("<p clss='card-text'>"+data.note.body+"</p>");
+        $("#notesDisplay").append(note);
+        console.log(note);
+        //$("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
+        //$("#bodyinput").val(data.note.body);
       }
     });
 });
