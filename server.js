@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo database
-mongoose.connect("mongodb://localhost/Test002", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/Test002", { useNewUrlParser: true , useUnifiedTopology: true });
 
 // Route definitions
 
@@ -102,40 +102,38 @@ app.get("/articles", function(req, res) {
       console.log(error);
     }
     else {
+      // //console.log(found);
+      // var list = [];
+      // for (var i = 0; i < 10; i++) {
+      //   list.append(found[i]);
+      // }
+      // console.log(list);
       res.json(found);
     }
-  });
+  }).sort( { _id: -1 });
 });
 
 app.get("/podcasts", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
   db.Podcast.find(function(error, found) {
     if (error) {
       console.log(error);
     }
     else {
+      //console.log("this is podcasts"+found);
       res.json(found);
     }
-  });
+  }).sort( { _id: -1 });
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // Finish the route so it finds one article using the req.params.id,
-  // and run the populate method with "note",
-  // then responds with the article with the note included
   var eid = req.params.id
   db.Article.findOne({ _id: eid })
-    // ..and populate all of the notes associated with it
     .populate("note")
     .then(function(dbArticle) {
-      // If we were able to successfully find an Article with the given id, send it back to the client
       res.json(dbArticle);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
       res.json(err);
     });
 
@@ -160,15 +158,9 @@ app.get("/articles/:id", function(req, res) {
 
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // save the new note that gets posted to the Notes collection
-  // then find an article from the req.params.id
-  // and update it's "note" property with the _id of the new note
   console.log(req.body);
   db.Note.create(req.body)
   .then(function(dbNote) {
-    // View the added result in the console
     console.log(dbNote);
     return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
   })
@@ -177,7 +169,6 @@ app.post("/articles/:id", function(req, res) {
     res.json(dbArticle);
   })
   .catch(function(err) {
-    // If an error occurred, log it
     console.log(err);
   });
 });

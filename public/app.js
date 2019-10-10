@@ -1,6 +1,6 @@
 // Grab the articles as a json
 $.getJSON("/articles", function(data) {
-  for (var i = 0; i < data.length; i++) {
+  for (var i = 0; i < 10; i++) {
     //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     var article = $("<div>");
     article.addClass("card");
@@ -13,7 +13,7 @@ $.getJSON("/articles", function(data) {
 });
 
 $.getJSON("/podcasts", function(data) {
-  for (var i = 0; i < data.length; i++) {
+  for (var i = 0; i < 10; i++) {
     //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     var podcast = $("<div>");
     podcast.addClass("card");
@@ -38,16 +38,11 @@ $(document).on("click", "#article-note", function() {
     // With that done, add the note information to the page
     .then(function(data) {
       console.log(data);
-      // The title of the article
       $("#notes").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
       $("#notes").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new note body
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
-      // If there's a note in the article
       if (data.note) {
         $("#notesDisplay").empty();
         // Place the title of the note in the title input
@@ -73,7 +68,7 @@ $(document).on("click", "#podcast-comment", function() {
   $("#comments").empty();
   var thisId = $(this).attr("data-id");
 
-  // Now make an ajax call for the Article
+  // Now make an ajax call for the podcasts
   $.ajax({
     method: "GET",
     url: "/podcasts/" + thisId
@@ -88,17 +83,6 @@ $(document).on("click", "#podcast-comment", function() {
       if (data.comment) {
         //$("#comments").empty();
         console.log(data.comment);
-        // Place the title of the note in the title input
-        // data.note.array.forEach(element => {
-        //   console.log(element);
-        // });
-
-        // var note = $("<div>");
-        // note.addClass("card");
-        // note.append("<h5 clss='card-title'>"+data.note.title+"</h5>");
-        // note.append("<p clss='card-text'>"+data.note.body+"</p>");
-        // $("#notesDisplay").append(note);
-        //console.log(comment);
         $("#commenttitleinput").val(data.comment.title);
         // Place the body of the note in the body textarea
         $("#commentbodyinput").val(data.comment.body);
