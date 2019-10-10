@@ -46,15 +46,15 @@ app.get("/scrape", function(req, res) {
 
       // Create a new Article using the `result` object built from scraping
       console.log(result);
-      // db.Article.create(result)
-      //   .then(function(dbArticle) {
-      //     // View the added result in the console
-      //     console.log(dbArticle);
-      //   })
-      //   .catch(function(err) {
-      //     // If an error occurred, log it
-      //     console.log(err);
-      //   });
+      db.Article.create(result)
+        .then(function(dbArticle) {
+          // View the added result in the console
+          console.log(dbArticle);
+        })
+        .catch(function(err) {
+          // If an error occurred, log it
+          console.log(err);
+        });
     });
 
     // Send a message to the client
@@ -101,6 +101,18 @@ app.get("/scrape/Podcasts", function(req, res) {
 app.get("/articles", function(req, res) {
   // TODO: Finish the route so it grabs all of the articles
   db.Article.find(function(error, found) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      res.json(found);
+    }
+  });
+});
+
+app.get("/podcasts", function(req, res) {
+  // TODO: Finish the route so it grabs all of the articles
+  db.Podcast.find(function(error, found) {
     if (error) {
       console.log(error);
     }
