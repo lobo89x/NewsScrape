@@ -18,18 +18,16 @@ $.getJSON("/podcasts", function(data) {
     var podcast = $("<div>");
     podcast.addClass("card");
     podcast.append("<h5 class='card-title'>"+data[i].title+"</h5>");
-    podcast.append("<p class='card-text'>"+data[i].summary+"</p>");
-    podcast.append("<a href="+data[i].link+" class='card-text'>Read It Here</a>");
-    podcast.append("<p data-id='"+data[i]._id + "' clss='card-text' id='article-note'>Got something to say?</p>");
+    podcast.append("<p class='card-text summary'>"+data[i].summary+"</p>");
+    podcast.append("<a href="+data[i].link+" class='card-text'>Listen to It Here</a>");
+    podcast.append("<p data-id='"+data[i]._id + "' clss='card-text' id='podcast-comment'>Got something to say?</p>");
     $("#podcasts").append(podcast);
   }
 });
 
 // Whenever someone clicks on the Article note tag
 $(document).on("click", "#article-note", function() {
-  // Empty the notes from the note section
   $("#notes").empty();
-  // Save the id from the p tag
   var thisId = $(this).attr("data-id");
 
   // Now make an ajax call for the Article
@@ -70,9 +68,47 @@ $(document).on("click", "#article-note", function() {
     });
 });
 
+// Whenever someone clicks on the Podcast comment tag
+$(document).on("click", "#podcast-comment", function() {
+  $("#comments").empty();
+  var thisId = $(this).attr("data-id");
+
+  // Now make an ajax call for the Article
+  $.ajax({
+    method: "GET",
+    url: "/podcasts/" + thisId
+  })
+    .then(function(data) {
+      console.log(data);
+      $("#comments").append("<h2>" + data.title + "</h2>");
+      $("#comments").append("<input id='commenttitleinput' name='title' >");
+      $("#comments").append("<textarea id='commentbodyinput' name='body'></textarea>");
+      $("#comments").append("<button data-id='" + data._id + "' id='savecomment'>Save Note</button>");
+
+      if (data.comment) {
+        //$("#comments").empty();
+        console.log(data.comment);
+        // Place the title of the note in the title input
+        // data.note.array.forEach(element => {
+        //   console.log(element);
+        // });
+
+        // var note = $("<div>");
+        // note.addClass("card");
+        // note.append("<h5 clss='card-title'>"+data.note.title+"</h5>");
+        // note.append("<p clss='card-text'>"+data.note.body+"</p>");
+        // $("#notesDisplay").append(note);
+        //console.log(comment);
+        $("#commenttitleinput").val(data.comment.title);
+        // Place the body of the note in the body textarea
+        $("#commentbodyinput").val(data.comment.body);
+      }
+    });
+});
+
+
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
-  // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
   // Run a POST request to change the note, using what's entered in the inputs
@@ -80,23 +116,35 @@ $(document).on("click", "#savenote", function() {
     method: "POST",
     url: "/articles/" + thisId,
     data: {
-      // Value taken from title input
       title: $("#titleinput").val(),
-      // Value taken from note textarea
       body: $("#bodyinput").val()
     }
   })
-    // With that done
     .then(function(data) {
-      // Log the response
       console.log(data);
-      // Empty the notes section
       $("#notes").empty();
     });
-
-  // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+$(document).on("click", "#savecomment", function() {
+  var thisId = $(this).attr("data-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/podcasts/" + thisId,
+    data: {
+      title: $("#commenttitleinput").val(),
+      body: $("#commentbodyinput").val()
+    }
+  })
+    .then(function(data) {
+      console.log(data);
+      $("#coments").empty();
+    });
+  $("#commenttitleinput").val("");
+  $("#commentbodyinput").val("");
 });
 
 //Scrape modal 

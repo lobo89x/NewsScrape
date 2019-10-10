@@ -91,15 +91,12 @@ app.get("/scrape/Podcasts", function(req, res) {
           console.log(err);
         });
     });
-
-    // Send a message to the client
     res.send("Scrape Complete");
   });
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
   db.Article.find(function(error, found) {
     if (error) {
       console.log(error);
@@ -178,6 +175,55 @@ app.post("/articles/:id", function(req, res) {
   .then(function(dbArticle) {
     console.log(dbArticle);
     res.json(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    console.log(err);
+  });
+});
+
+app.get("/podcasts/:id", function(req, res) {
+  var eid = req.params.id
+  console.log(eid);
+  db.Podcast.findOne({ _id: eid })
+    .populate("comment")
+    .then(function(dbPodcast) {
+      res.json(dbPodcast);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+
+
+  // db.Article.find({_id: eid}, function(error, found) {
+  //   if (error) {
+  //     console.log(error);
+  //   }
+  //   else {
+  //     res.json(found);
+  //     db.Article.populate("note", function(err, dbArticle) {
+  //       if (error) {
+  //         console.log(err);
+  //       }
+  //       else {
+  //         res.json(dbArticle);
+  //       }
+  //     })
+  //   }
+  // });
+});
+
+app.post("/podcasts/:id", function(req, res) {
+  console.log(req.body);
+  db.Comment.create(req.body)
+  .then(function(dbComment) {
+    // View the added result in the console
+    console.log(dbComment);
+    return db.Podcast.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
+  })
+  .then(function(dbPodcast) {
+    console.log(dbPodcast);
+    res.json(dbPodcast);
   })
   .catch(function(err) {
     // If an error occurred, log it
