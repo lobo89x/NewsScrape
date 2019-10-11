@@ -7,21 +7,24 @@
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
       <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
     <style>
-      body { background-color: rgb(0, 0, 0) }
+      body { 
+        background-image: url("http://genchi.info/img/desktop-wallpapers-patterns-3.jpg");
+        background-color: rgb(0, 0, 0) ;
+      }
       .modal{
         display: none;
         position: fixed;
         z-index: 1;
-        height: 35%;
-        width: 35%;
+        height: 15%;
+        width: 25%;
         background-color: black;
         color: aliceblue;
       }
       .modal-content{
-        background-color: grey;
-        margin: 10% auto;
+        background-color: rgb(58, 58, 58);
+        margin: 1% auto;
         padding: 8%;
-        box-shadow: 0 5px 8px 0 black, 0 7px 20px 0 black;
+        box-shadow: 0 5px 8px 0 rgba(116, 46, 46, 0.664), 0 7px 20px 0 rgba(116, 46, 46, 0.664);
       }
       .closeBtn{
         color: #cccccc;
@@ -53,7 +56,8 @@
         height: 700px;
       }
       .card {
-        background-color: rgb(0, 0, 0) 
+        background-color: rgb(37, 37, 37);
+        height: 190px; 
       }
       #notes {
         float: right;
@@ -81,9 +85,6 @@
         text-overflow: ellipsis;
         height: 90px;
       }
-      .card{
-        height: 190px;
-      }
     </style>
   </head>
   <body>
@@ -92,7 +93,7 @@
         <div class="col-lg-3">
             <!-- <img class="img-fluid" src="assets/img/giphy (1).gif" alt=""> -->
         <div>
-          <button id="modalBtn" class="button">Scrape New Articles</button>
+          <button id="modalBtn" class="button btn btn-default">Scrape New Articles</button>
           <div id="ArticlesRescrapeModal" class="modal">
             <div class="modal-content">
               <span class="closeBtn">&times;</span>
@@ -116,7 +117,7 @@
           <div class="col-lg-3">
               <!-- <img class="img-fluid" src="assets/img/giphy (1).gif" alt=""> -->
           <div>
-            <button id="modalBtnPodcasts" class="button">Scrape New Podcasts</button>
+            <button id="modalBtnPodcasts" class="button btn btn-default">Scrape New Podcasts</button>
             <div id="PodcastsRescrapeModal" class="modal">
               <div class="modal-content">
                 <span class="closeBtn">&times;</span>
