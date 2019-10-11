@@ -8,7 +8,7 @@ var cheerio = require("cheerio");
 var db = require("./models");
 
 // create port
-var PORT = 9001;
+var PORT = process.env.PORT || 9001;
 
 // Initialize Express
 var app = express();
@@ -22,7 +22,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo database
-mongoose.connect("mongodb://localhost/Test002", { useNewUrlParser: true , useUnifiedTopology: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tvtapp:root1988@ds233278.mlab.com:33278/heroku_4pcqdl7k";
+
+
+// mongoose.connect("mongodb://localhost/Test002", { useNewUrlParser: true , useUnifiedTopology: true });
+
+mongoose.connect(MONGODB_URI);
 
 // Route definitions
 
