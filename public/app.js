@@ -1,27 +1,57 @@
 // Grab the articles as a json
 $.getJSON("/articles", function(data) {
-  for (var i = 0; i < 10; i++) {
-    //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-    var article = $("<div>");
-    article.addClass("card");
-    article.append("<h5 class='card-title'>"+data[i].title+"</h5>");
-    article.append("<p class='card-text'>"+data[i].summary+"</p>");
-    article.append("<a href="+data[i].link+" class='card-text'>Read It Here</a>");
-    article.append("<p data-id='"+data[i]._id + "' clss='card-text' id='article-note'>Got something to say?</p>");
-    $("#articles").append(article);
+  if (data.length > 9){
+    for (var i = 0; i < 10; i++) {
+      //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+      var article = $("<div>");
+      article.addClass("card");
+      article.append("<h5 class='card-title'>"+data[i].title+"</h5>");
+      article.append("<p class='card-text'>"+data[i].summary+"</p>");
+      article.append("<a href="+data[i].link+" class='card-text'>Read It Here</a>");
+      article.append("<p data-id='"+data[i]._id + "' clss='card-text' id='article-note'>Got something to say?</p>");
+      $("#articles").append(article);
+    }  
+  }
+  else {
+    
+      for (var i = 0; i < data.length; i++) {
+        //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        var article = $("<div>");
+        article.addClass("card");
+        article.append("<h5 class='card-title'>"+data[i].title+"</h5>");
+        article.append("<p class='card-text'>"+data[i].summary+"</p>");
+        article.append("<a href="+data[i].link+" class='card-text'>Read It Here</a>");
+        article.append("<p data-id='"+data[i]._id + "' clss='card-text' id='article-note'>Got something to say?</p>");
+        $("#articles").append(article);
+      }
   }
 });
 
 $.getJSON("/podcasts", function(data) {
-  for (var i = 0; i < 10; i++) {
-    //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-    var podcast = $("<div>");
-    podcast.addClass("card");
-    podcast.append("<h5 class='card-title'>"+data[i].title+"</h5>");
-    podcast.append("<p class='card-text summary'>"+data[i].summary+"</p>");
-    podcast.append("<a href="+data[i].link+" class='card-text'>Listen to It Here</a>");
-    podcast.append("<p data-id='"+data[i]._id + "' clss='card-text' id='podcast-comment'>Got something to say?</p>");
-    $("#podcasts").append(podcast);
+  if (data.length > 9){
+    for (var i = 0; i < 10; i++) {
+      //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+      var podcast = $("<div>");
+      podcast.addClass("card");
+      podcast.append("<h5 class='card-title'>"+data[i].title+"</h5>");
+      podcast.append("<p class='card-text summary'>"+data[i].summary+"</p>");
+      podcast.append("<a href="+data[i].link+" class='card-text'>Listen to It Here</a>");
+      podcast.append("<p data-id='"+data[i]._id + "' clss='card-text' id='podcast-comment'>Got something to say?</p>");
+      $("#podcasts").append(podcast);
+    }
+    
+  }
+  else {
+    for (var i = 0; i < data.length; i++) {
+      //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+      var podcast = $("<div>");
+      podcast.addClass("card");
+      podcast.append("<h5 class='card-title'>"+data[i].title+"</h5>");
+      podcast.append("<p class='card-text summary'>"+data[i].summary+"</p>");
+      podcast.append("<a href="+data[i].link+" class='card-text'>Listen to It Here</a>");
+      podcast.append("<p data-id='"+data[i]._id + "' clss='card-text' id='podcast-comment'>Got something to say?</p>");
+      $("#podcasts").append(podcast);
+    }
   }
 });
 
